@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
+* @package MoT DIM v0.2.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -25,7 +25,7 @@ class v_0_1_0 extends \phpbb\db\migration\migration
 	{
 		return [
 			// Add the config variable we want to be able to set
-			['config.add', ['mot_dim_enable', true]],
+			['config.add', ['mot_dim_enable', false]],
 			['config.add', ['mot_dim_days_delete', 5]],
 			['config.add', ['mot_dim_protected_groups', json_encode([])]],
 			['config.add', ['mot_dim_protected_users', json_encode([])]],

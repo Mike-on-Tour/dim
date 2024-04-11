@@ -50,7 +50,6 @@ class mot_dim_cron extends \phpbb\cron\task\base
 	public function run()
 	{
 		$this->check_users_to_delete();
-		$this->config->set('mot_dim_cron_last_gc', time());
 	}
 
 	/**
@@ -85,7 +84,6 @@ class mot_dim_cron extends \phpbb\cron\task\base
 		if ($this->config['mot_dim_enable'])
 		{
 			// Compute the threshold timestamp
-
 			$threshold = time() - ($this->config['mot_dim_days_delete'] * 86400);
 
 			// Get the protected users and groups
@@ -130,6 +128,9 @@ class mot_dim_cron extends \phpbb\cron\task\base
 				user_get_id_name($user_ids, $username_ary);
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'MOT_DIM_LOG_DELETION', false, [implode(', ', $username_ary)]);
 			}
+
+			// Set the last run config variable
+			$this->config->set('mot_dim_cron_last_gc', time());
 		}
 	}
 }

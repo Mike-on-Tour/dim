@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "This extension lets the administrator after a selectable number of days automatically delete any members who have neither activated their account nor visited the site in question after activation nor posted.",
     "homepage": "https://www.mike-on-tour.com",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "time": "2024-04-10 12:11:57",
     "keywords": [
         "phpbb",

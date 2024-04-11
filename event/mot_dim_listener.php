@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
+* @package MoT DIM v0.2.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -34,7 +34,7 @@ class mot_dim_listener implements EventSubscriberInterface
 		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = [
 			'ext_name' => 'mot/dim',
-			'lang_set' => 'mot_dim_log',
+			'lang_set' => 'mot_dim_main',
 		];
 		$event['lang_set_ext'] = $lang_set_ext;
 	}

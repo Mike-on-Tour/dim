@@ -10,8 +10,8 @@ services:
             - '@config'
             - '@dbal.conn'
             - '@group_helper'
+            - '@controller.helper'
             - '@language'
-            - '@pagination'
             - '@ext.manager'
             - '@request'
             - '@template'
@@ -32,3 +32,15 @@ services:
             - [set_name, [cron.task.mot_dim_cron]]
         tags:
             - { name: cron.task }
+
+    mot.dim.controller.mot_dim_result_check:
+        class: mot\dim\controller\mot_dim_result_check
+        arguments:
+            - '@config'
+            - '@dbal.conn'
+            - '@controller.helper'
+            - '@language'
+            - '@pagination'
+            - '@request'
+            - '@template'
+            - '@user'

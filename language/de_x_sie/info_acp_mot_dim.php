@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
+* @package MoT DIM v0.2.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -28,7 +28,9 @@ $lang = array_merge($lang, [
 
 	'ACP_MOT_DIM_GENERAL_SETTINGS'		=> 'Allgemeine Einstellungen',
 	'ACP_MOT_DIM_ENABLE'				=> 'Funktion aktivieren',
-	'ACP_MOT_DIM_ENABLE_EXPL'			=> 'Mit diesem Schalter können Sie die Erweiterung aktivieren bzw. deaktivieren.',
+	'ACP_MOT_DIM_ENABLE_EXPL'			=> 'Mit diesem Schalter können Sie die Erweiterung aktivieren bzw. deaktivieren.<br><span style="color:red">
+											Vor dem Aktivieren sollten Sie sicher sein, dass die mit den nachfolgenden Einstellungen gewählte Konfiguration Ihren Absichten
+											entspricht und nicht versehentlich Mitglieder gelöscht werden, die erhalten bleiben sollen!</span>',
 
 	'ACP_MOT_DIM_DELETE_SETTINGS'		=> 'Lösch-Einstellungen',
 	'ACP_MOT_DIM_DAYS_DELETE'			=> 'Anzahl Tage bis zum Löschen',
@@ -38,8 +40,12 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_PROTECTED_USERS_EXPL'	=> 'Eingabe der Benutzernamen von Mitgliedern, die von einer Löschung ausgenommen werden sollen.<br>
 											Zeilen mit Mitgliedernamen entfernen, um diese Mitglieder aus dieser Liste zu löschen.<br><strong>Nur ein Name pro Zeile!</strong>',
 	'ACP_MOT_DIM_PROTECTED_GROUPS'		=> 'Geschützte Gruppen',
-	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Auswahl von Hauptgruppe(n), deren Mitglieder von einer Löschung ausgenommen werden sollen. Bereits ausgewählte Gruppen sind hervorgehoben.<br>
+	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Auswahl von <strong>Hauptgruppe(n)</strong>, deren Mitglieder von einer Löschung ausgenommen werden sollen. Bereits ausgewählte Gruppen sind hervorgehoben.<br>
 											Unter Drücken und Halten der ´Strg´-Taste und Mausklick können mehrere Gruppen ausgewählt werden.',
+	'ACP_MOT_DIM_CHECK_RESULT'			=> 'Einstellungen testen',
+	'ACP_MOT_DIM_CHECK_RESULT_EXPL'		=> 'Nach Anklicken des Buttons rechts öffnet sich ein neues Fenster, in dem die Mitglieder aufgelistet werden, die mit der obigen
+											Konfiguration gelöscht würden. So können Sie vor Aktivierung der Erweiterung prüfen, ob die gewählten Einstellungen das gewünschte
+											Resultat erzeugen.<br>Beachten Sie bitte, dass die Einstellungen zuvor gespeichert werden müssen!',
 
 	'ACP_MOT_DIM_CRON_SETTINGS'			=> 'Cron-Einstellungen',
 	'ACP_MOT_DIM_CRON_INTERVAL'			=> 'Zeit zwischen zwei Cron-Läufen',

@@ -4,7 +4,23 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.1.0] - 2024-04-10
+## [0.2.0] - 2024-04-10
+
+### Added
+-	A warning notice to the language key which explains the enabling switch
+-	A new function to display those users who would be deleted while applying the current settings with the new files `config/routing.yml`, `controller/mot_dim_result_check.php`
+	and `styles/all/template/mot_dim_result_check.html`
+
+### Changed
+-	The config value for enabling the extension from `true` (enabled) to `false` (disabled) to prevent an inadvertent usage
+-	Renamed the language file `mot_dim_log.php` into `mot_dim_main.php`
+
+### Fixed
+
+### Removed
+
+
+## [0.1.0] - 2024-04-09
 
 ### Added
 -	The basic directory and file structure necessary for a phpBB 3.3.x extension

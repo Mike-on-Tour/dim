@@ -33,6 +33,17 @@
 			<dt><label for="mot_dim_protected_groups">{{ lang('ACP_MOT_DIM_PROTECTED_GROUPS') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_PROTECTED_GROUPS_EXPL') }}</span></dt>
             <dd><select class="no-scroll" id="mot_dim_protected_groups" name="mot_dim_protected_groups[]" size="{{ ACP_MOT_DIM_GROUP_COUNT }}" multiple="multiple">{{ ACP_MOT_DIM_PROTECTED_GROUPS }}</select></dd>
 		</dl>
+
+		<hr>
+
+		<dl>
+			<dt><label for="mot_dim_check_results">{{ lang('ACP_MOT_DIM_CHECK_RESULT') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_CHECK_RESULT_EXPL') }}</span></dt>
+            <dd>
+				<a href="{{ U_ACTION_TEST_SETTINGS }}" onclick="javascript:popup(this.href, 818, 750, '_matchstats'); return false;">
+					<input class="dim-button button1" type="submit" value="{{ lang('ACP_MOT_DIM_CHECK_RESULT') }}">
+				</a>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<fieldset>

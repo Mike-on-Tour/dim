@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
+* @package MoT DIM v0.2.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -20,11 +20,11 @@ class mot_dim_acp
 	/* @var \phpbb\group\helper */
 	protected $group_helper;
 
+	/* @var \phpbb\controller\helper */
+	protected $helper;
+
 	/** @var \phpbb\language\language $language Language object */
 	protected $language;
-
-	/** @var \phpbb\pagination  */
-	protected $pagination;
 
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
@@ -47,15 +47,15 @@ class mot_dim_acp
 	/**
 	 * {@inheritdoc
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\group\helper $group_helper, \phpbb\language\language $language,
-								\phpbb\pagination $pagination, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\request\request_interface $request,
-								\phpbb\template\template $template, \phpbb\user $user, $root_path, $php_ext)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\group\helper $group_helper, \phpbb\controller\helper $helper,
+								\phpbb\language\language $language, \phpbb\extension\manager $phpbb_extension_manager,
+								\phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, $root_path, $php_ext)
 	{
 		$this->config = $config;
 		$this->db = $db;
 		$this->group_helper = $group_helper;
+		$this->helper = $helper;
 		$this->language = $language;
-		$this->pagination = $pagination;
 		$this->phpbb_extension_manager = $phpbb_extension_manager;
 		$this->request = $request;
 		$this->template = $template;
@@ -78,33 +78,40 @@ class mot_dim_acp
 			include($this->root_path . 'includes/functions_user.' . $this->php_ext);
 		}
 
-		// If the submit button was hit write all the data into the CONFIG_TABLE
-		if ($this->request->is_set_post('submit'))
+		$action = $this->request->variable('action', '');
+		switch ($action)
 		{
-			if (!check_form_key($form_key))
-			{
-				trigger_error($this->language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
-			}
+			case 'submit':
+				if (!check_form_key($form_key))
+				{
+					trigger_error($this->language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+				}
 
-			// get the names of members to be protected and convert it to array of user_ids
-			$protected_users_ids = [];
-			$protected_users_names = $this->request->variable('mot_dim_protected_users', '', true);
-			$username_arr = explode("\n", $protected_users_names);
-			user_get_id_name($protected_users_ids, $username_arr);
-			sort($protected_users_ids);
+				// get the names of members to be protected and convert it to array of user_ids
+				$protected_users_ids = [];
+				$protected_users_names = $this->request->variable('mot_dim_protected_users', '', true);
+				$username_arr = explode("\n", $protected_users_names);
+				user_get_id_name($protected_users_ids, $username_arr);
+				sort($protected_users_ids);
 
-			$cron_unit = $this->request->variable('mot_dim_cron_unit', 0);
-			$cron_interval = $this->request->variable('mot_dim_cron_interval', 0);
-			$cron_interval = $cron_unit ? $cron_interval * 86400 : $cron_interval * 3600;
+				$cron_unit = $this->request->variable('mot_dim_cron_unit', 0);
+				$cron_interval = $this->request->variable('mot_dim_cron_interval', 0);
+				$cron_interval = $cron_unit ? $cron_interval * 86400 : $cron_interval * 3600;
 
-			$this->config->set('mot_dim_enable', $this->request->variable('mot_dim_enable', 0));
-			$this->config->set('mot_dim_days_delete', $this->request->variable('mot_dim_days_delete', 0));
-			$this->config->set('mot_dim_protected_users', json_encode($protected_users_ids));
-			$this->config->set('mot_dim_protected_groups', json_encode($this->request->variable('mot_dim_protected_groups', [0])));
-			$this->config->set('mot_dim_cron_gc', $cron_interval);
-			$this->config->set('mot_dim_cron_unit', $cron_unit);
+				$this->config->set('mot_dim_enable', $this->request->variable('mot_dim_enable', 0));
+				$this->config->set('mot_dim_days_delete', $this->request->variable('mot_dim_days_delete', 0));
+				$this->config->set('mot_dim_protected_users', json_encode($protected_users_ids));
+				$this->config->set('mot_dim_protected_groups', json_encode($this->request->variable('mot_dim_protected_groups', [0])));
+				$this->config->set('mot_dim_cron_gc', $cron_interval);
+				$this->config->set('mot_dim_cron_unit', $cron_unit);
 
-			trigger_error($this->language->lang('ACP_MOT_DIM_SETTING_SAVED') . adm_back_link($this->u_action));
+				trigger_error($this->language->lang('ACP_MOT_DIM_SETTING_SAVED') . adm_back_link($this->u_action));
+
+				break;
+
+			case 'config_test':
+
+				break;
 		}
 
 		// Get the user_ids of protected members and convert it to string for use in template
@@ -167,7 +174,8 @@ class mot_dim_acp
 			'ACP_MOT_DIM_CRON_UNIT_SELECT'			=> $cron_unit_select,
 			'ACP_MOT_DIM_LAST_CRON_RUN'				=> $this->config['mot_dim_cron_last_gc'] ? $this->user->format_date($this->config['mot_dim_cron_last_gc']) : '-',
 			'ACP_MOT_DIM_VERSION_STRING'			=> $this->language->lang('ACP_MOT_DIM_VERSION', $this->mot_dim_version),
-			'U_ACTION'								=> $this->u_action,
+			'U_ACTION'								=> $this->u_action . '&amp;action=submit',
+			'U_ACTION_TEST_SETTINGS'				=> $this->helper->route('mot_dim_result_check_controller', []),
 		]);
 	}
 
