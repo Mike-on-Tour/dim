@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.2.0
+* @package MoT DIM v1.0.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -36,6 +36,11 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_DAYS_DELETE'			=> 'Anzahl Tage bis zum Löschen',
 	'ACP_MOT_DIM_DAYS_DELETE_EXP'		=> 'Anzahl der Tage nach der Registrierung bis zum automatischen Löschen des Mitgliedes, wenn es in dieser Zeit keine Aktivierung des
 											Accounts oder kein Anmelden gab oder das Mitglied keinen Beitrag verfasst hat.',
+	'ACP_MOT_DIM_ENABLE_SLEEPER'		=> 'Berücksichtige Schläfer',
+	'ACP_MOT_DIM_ENABLE_SLEEPER_EXPL'	=> 'Wenn aktiviert (Standard), werden Schläfer (Mitglieder, die nach Aktivierung des Accounts nie eingeloggt waren) beim Löschen mit einbezogen.',
+	'ACP_MOT_DIM_ENABLE_ZEROPOST'		=> 'Berücksichtige Nullposter',
+	'ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL'	=> 'Wenn aktiviert (Standard), werden Nullposter (Mitglieder, die nach Aktivierung des Accounts mindestens einmal eingeloggt waren, aber keinen
+											Beitrag gepostet haben) beim Löschen mit einbezogen.',
 	'ACP_MOT_DIM_PROTECTED_USERS'		=> 'Geschützte Mitglieder',
 	'ACP_MOT_DIM_PROTECTED_USERS_EXPL'	=> 'Eingabe der Benutzernamen von Mitgliedern, die von einer Löschung ausgenommen werden sollen.<br>
 											Zeilen mit Mitgliedernamen entfernen, um diese Mitglieder aus dieser Liste zu löschen.<br><strong>Nur ein Name pro Zeile!</strong>',

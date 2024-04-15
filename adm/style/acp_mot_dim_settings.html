@@ -24,6 +24,16 @@
 			<dd><input id="mot_dim_days_delete" type="number" min="1" max="70" name="mot_dim_days_delete" value={{ ACP_MOT_DIM_DAYS_DELETE }}></dd>
 		</dl>
 
+
+		<dl>
+			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER_EXPL') }}</span></dt>
+			<dd>{{ _self.switch('mot_dim_enable_sleeper', ACP_MOT_DIM_ENABLE_SLEEPER, switch_type) }}</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL') }}</span></dt>
+			<dd>{{ _self.switch('mot_dim_enable_zeropost', ACP_MOT_DIM_ENABLE_ZEROPOST, switch_type) }}</dd>
+		</dl>
 		<dl>
 			<dt><label for="mot_dim_protected_users">{{ lang('ACP_MOT_DIM_PROTECTED_USERS') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_PROTECTED_USERS_EXPL') }}</span></dt>
 			<dd><textarea id="mot_dim_protected_users" name="mot_dim_protected_users" rows="10">{{ ACP_MOT_DIM_PROTECTED_USERS }}</textarea></dd>

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
+* @package MoT DIM v1.0.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -90,15 +90,21 @@ class mot_dim_cron extends \phpbb\cron\task\base
 			$protected_users = json_decode($this->config['mot_dim_protected_users']);
 			$protected_groups = json_decode($this->config['mot_dim_protected_groups']);
 
-			$sql = 'SELECT user_id FROM ' . USERS_TABLE . '
-					WHERE (	(user_type = '. USER_INACTIVE . ' AND user_inactive_reason = ' . INACTIVE_REGISTER . ' AND user_regdate < ' . (int) $threshold . ') OR
-							(user_type = '. USER_NORMAL . ' AND user_lastvisit = 0 AND user_regdate < ' . (int) $threshold . ') OR
-							(user_type = '. USER_NORMAL . ' AND user_lastvisit > 0 AND user_posts = 0 AND user_regdate < ' . (int) $threshold . ')
-						  )';
-			// Integrate exclusion of protected users if there are any
-			$sql .= !empty($protected_users) ? ' AND (' . $this->db->sql_in_set('user_id', $protected_users, true) . ')' : '';
-			// Integrate exclusion of protected grops if there are any
-			$sql .= !empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('group_id', $protected_groups, true) . ')' : '';
+			$sql_ary = [
+				'SELECT'		=> 'u.user_id',
+
+				'FROM'			=> [USERS_TABLE	=> 'u'],
+
+				'WHERE'			=> '(
+										(u.user_type = '. USER_INACTIVE . ' AND u.user_inactive_reason = ' . INACTIVE_REGISTER . ')' .
+										($this->config['mot_dim_enable_sleeper'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit = 0)' : '') .
+										($this->config['mot_dim_enable_zeropost'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit > 0 AND u.user_posts = 0)' : '') . '
+									)
+									AND u.user_regdate < ' . (int) $threshold .
+									(!empty($protected_users) ? ' AND (' . $this->db->sql_in_set('u.user_id', $protected_users, true) . ')' : '') .
+									(!empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('u.group_id', $protected_groups, true) . ')' : ''),
+			];
+			$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 			// Add a LIMIT to the query to ascertain that following queries using the IN clause do not abort because of too many user_ids to handle (an internet search revealed that 1000 seems to be the limit)
 			$sql .= ' LIMIT 1000';
 			$result = $this->db->sql_query($sql);
@@ -121,7 +127,7 @@ class mot_dim_cron extends \phpbb\cron\task\base
 					include($this->root_path . 'includes/functions_user.' . $this->phpEx);
 				}
 
-//				user_delete('retain', $user_ids);
+				user_delete('retain', $user_ids);
 
 				// Log the action
 				$username_ary = [];

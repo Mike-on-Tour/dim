@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.2.0
+* @package MoT DIM v1.0.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -100,16 +100,14 @@ class mot_dim_acp
 
 				$this->config->set('mot_dim_enable', $this->request->variable('mot_dim_enable', 0));
 				$this->config->set('mot_dim_days_delete', $this->request->variable('mot_dim_days_delete', 0));
+				$this->config->set('mot_dim_enable_sleeper', $this->request->variable('mot_dim_enable_sleeper', 0));
+				$this->config->set('mot_dim_enable_zeropost', $this->request->variable('mot_dim_enable_zeropost', 0));
 				$this->config->set('mot_dim_protected_users', json_encode($protected_users_ids));
 				$this->config->set('mot_dim_protected_groups', json_encode($this->request->variable('mot_dim_protected_groups', [0])));
 				$this->config->set('mot_dim_cron_gc', $cron_interval);
 				$this->config->set('mot_dim_cron_unit', $cron_unit);
 
 				trigger_error($this->language->lang('ACP_MOT_DIM_SETTING_SAVED') . adm_back_link($this->u_action));
-
-				break;
-
-			case 'config_test':
 
 				break;
 		}
@@ -125,9 +123,7 @@ class mot_dim_acp
 		$sql_ary = [
 			'SELECT'	=> 'g.group_id, g.group_type, g.group_name, u.group_id',
 
-			'FROM'		=> [
-					GROUPS_TABLE	=> 'g',
-			],
+			'FROM'		=> [GROUPS_TABLE	=> 'g',],
 
 			'LEFT_JOIN'	=> [
 					[
@@ -168,6 +164,8 @@ class mot_dim_acp
 			'ACP_MOT_DIM_ENABLE'					=> $this->config['mot_dim_enable'],
 			'ACP_MOT_DIM_DAYS_DELETE'				=> $this->config['mot_dim_days_delete'],
 			'ACP_MOT_DIM_PROTECTED_USERS'			=> $protected_users_names,
+			'ACP_MOT_DIM_ENABLE_SLEEPER'			=> $this->config['mot_dim_enable_sleeper'],
+			'ACP_MOT_DIM_ENABLE_ZEROPOST'			=> $this->config['mot_dim_enable_zeropost'],
 			'ACP_MOT_DIM_GROUP_COUNT'				=> $group_count,
 			'ACP_MOT_DIM_PROTECTED_GROUPS'			=> $protected_groups,
 			'ACP_MOT_DIM_CRON_INTERVAL'				=> $this->config['mot_dim_cron_unit'] ? $this->config['mot_dim_cron_gc'] / 86400 : $this->config['mot_dim_cron_gc'] / 3600,

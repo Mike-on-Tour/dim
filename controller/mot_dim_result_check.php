@@ -62,7 +62,7 @@ class mot_dim_result_check
 		$protected_groups = json_decode($this->config['mot_dim_protected_groups']);
 
 		$sql_ary = [
-			'SELECT'		=> 'u.user_id, u.username, u.user_type, u.group_id, u.user_regdate, g.group_type, g.group_name',
+			'SELECT'		=> 'u.user_id, u.username, u.user_type, u.group_id, u.user_lastvisit, u.user_regdate, u.user_posts, g.group_type, g.group_name',
 
 			'FROM'			=> [USERS_TABLE		=> 'u',],
 
@@ -73,10 +73,12 @@ class mot_dim_result_check
 						],
 			],
 
-			'WHERE'			=> '((u.user_type = '. USER_INACTIVE . ' AND u.user_inactive_reason = ' . INACTIVE_REGISTER . ' AND u.user_regdate < ' . (int) $threshold . ') OR
-									(u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit = 0 AND u.user_regdate < ' . (int) $threshold . ') OR
-									(u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit > 0 AND u.user_posts = 0 AND u.user_regdate < ' . (int) $threshold . ')
-								)' .
+			'WHERE'			=> '(
+									(u.user_type = '. USER_INACTIVE . ' AND u.user_inactive_reason = ' . INACTIVE_REGISTER . ')' .
+									($this->config['mot_dim_enable_sleeper'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit = 0)' : '') .
+									($this->config['mot_dim_enable_zeropost'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit > 0 AND u.user_posts = 0)' : '') . '
+								)
+								AND u.user_regdate < ' . (int) $threshold .
 								(!empty($protected_users) ? ' AND (' . $this->db->sql_in_set('u.user_id', $protected_users, true) . ')' : '') .
 								(!empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('u.group_id', $protected_groups, true) . ')' : ''),
 
@@ -98,11 +100,14 @@ class mot_dim_result_check
 		// Prepare table content
 		foreach ($user_result as $row)
 		{
+			$reason = ($row['user_type'] == USER_INACTIVE) ? $this->language->lang('MOT_DIM_NOT_ACTIVATED') : '';
+			$reason = ($row['user_type'] == USER_NORMAL && $row['user_lastvisit'] == 0) ? $this->language->lang('MOT_DIM_SLEEPER') : $reason;
+			$reason = ($row['user_type'] == USER_NORMAL && $row['user_lastvisit'] > 0 && $row['user_posts'] == 0) ? $this->language->lang('MOT_DIM_ZEROPOSTER') : $reason;
 			$this->template->assign_block_vars('users', [
 				'USERNAME'		=> $row['username'],
 				'GROUP'			=> $row['group_type'] == GROUP_SPECIAL ? $this->language->lang('G_' . $row['group_name']) : $row['group_name'],
 				'REG_DATE'		=> $this->user->format_date($row['user_regdate']),
-				'INACTIVE'		=> $row['user_type'] == USER_INACTIVE ? 'X' : '',
+				'REASON'		=> $reason,
 			]);
 		}
 

@@ -27,8 +27,10 @@ class v_0_1_0 extends \phpbb\db\migration\migration
 			// Add the config variable we want to be able to set
 			['config.add', ['mot_dim_enable', false]],
 			['config.add', ['mot_dim_days_delete', 5]],
-			['config.add', ['mot_dim_protected_groups', json_encode([])]],
+			['config.add', ['mot_dim_enable_sleeper', true]],
+			['config.add', ['mot_dim_enable_zeropost', true]],
 			['config.add', ['mot_dim_protected_users', json_encode([])]],
+			['config.add', ['mot_dim_protected_groups', json_encode([])]],
 			['config.add', ['mot_dim_cron_unit', 1, true]],		// 1 means a day, 0 means an hour
 			['config.add', ['mot_dim_cron_gc', 86400, true]],
 			['config.add', ['mot_dim_cron_last_gc', 0, true]],

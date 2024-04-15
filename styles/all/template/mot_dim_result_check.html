@@ -26,7 +26,7 @@
 						<th>{{ lang('USERNAME') }}</th>
 						<th>{{ lang('GROUP') }}</th>
 						<th>{{ lang('MOT_DIM_REGISTERED') }}</th>
-						<th>{{ lang('INACTIVE') }}</th>
+						<th>{{ lang('REASON') }}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,7 +35,7 @@
 							<td>{{ user.USERNAME }}</td>
 							<td>{{ user.GROUP }}</td>
 							<td>{{ user.REG_DATE }}</td>
-							<td style="text-align: center;">{{ user.INACTIVE }}</td>
+							<td>{{ user.REASON }}</td>
 						</tr>
 					{% else %}
 						<tr>

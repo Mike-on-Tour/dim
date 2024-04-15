@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.2.0
+* @package MoT DIM v1.0.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -36,6 +36,10 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_DAYS_DELETE'			=> 'Number of days until deletion',
 	'ACP_MOT_DIM_DAYS_DELETE_EXP'		=> 'Select the number of days since registration after which users will be deleted if they have neither activated their account nor logged
 											into the board nor posted something.',
+	'ACP_MOT_DIM_ENABLE_SLEEPER'		=> 'Incorporate sleepers',
+	'ACP_MOT_DIM_ENABLE_SLEEPER_EXPL'	=> 'If enabled (default) sleepers (members who after their account has been activated never have logged in) will be incorporated into deletion.',
+	'ACP_MOT_DIM_ENABLE_ZEROPOST'		=> 'Incorporate zeroposters',
+	'ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL'	=> 'If enabled (default) zeroposters (members who were logged in at least once but never have posted) will be incorporated into deletion.',
 	'ACP_MOT_DIM_PROTECTED_USERS'		=> 'Protected users',
 	'ACP_MOT_DIM_PROTECTED_USERS_EXPL'	=> 'Input of the usernames of users you want to protect from being deleted.<br>
 											To remove a user from this list just remove the line with the respective username.<br><strong>Each username MUST BE on its own line!</strong>',

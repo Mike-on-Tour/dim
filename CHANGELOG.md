@@ -4,6 +4,21 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2024-04-14
+
+### Added
+-	Added two switches to the ACP settings page to incorporate sleepers and zeroposters into the deletion
+
+### Changed
+-	The building of the SQL query within `cron/task/mot_dim_cron.php`
+-	The last column of the "test settings" window from displaying only not activated members to the reason why members are displayed
+
+### Fixed
+
+### Removed
+-	The comment that disabled the actual deletion of the selected users within `cron/task/mot_dim_cron.php`
+
+
 ## [0.2.0] - 2024-04-10
 
 ### Added
