@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.1
+* @package MoT DIM v1.0.2
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -137,11 +137,14 @@ class mot_dim_cron extends \phpbb\cron\task\base
 					include($this->root_path . 'includes/functions_user.' . $this->phpEx);
 				}
 
+				// Get usernames for log purposes
+				$username_ary = [];
+				user_get_id_name($user_ids, $username_ary);
+
+				// Delete users
 				user_delete('retain', $user_ids);
 
 				// Log the action
-				$username_ary = [];
-				user_get_id_name($user_ids, $username_ary);
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'MOT_DIM_LOG_DELETION', false, [implode(', ', $username_ary)]);
 			}
 

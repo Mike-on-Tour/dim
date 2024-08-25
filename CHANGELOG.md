@@ -4,6 +4,18 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.2] - 2024-08-25
+
+### Added
+
+### Changed
+
+### Fixed
+-	The wrong sequence of function calls to delete users and then try to get usernames for deleted user_ids for logging in `cron/task/mot_dim_cron.php`
+
+### Removed
+
+
 ## [1.0.1] - 2024-08-21
 
 ### Added
