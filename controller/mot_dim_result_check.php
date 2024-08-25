@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v0.2.0
+* @package MoT DIM v1.0.1
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -62,7 +62,7 @@ class mot_dim_result_check
 		$protected_groups = json_decode($this->config['mot_dim_protected_groups']);
 
 		$sql_ary = [
-			'SELECT'		=> 'u.user_id, u.username, u.user_type, u.group_id, u.user_lastvisit, u.user_regdate, u.user_posts, g.group_type, g.group_name',
+			'SELECT'		=> 'u.user_id, u.username, u.user_type, u.group_id, u.user_lastvisit, u.user_regdate, u.user_posts, u.user_lastpost_time, g.group_type, g.group_name',
 
 			'FROM'			=> [USERS_TABLE		=> 'u',],
 
@@ -71,6 +71,10 @@ class mot_dim_result_check
 							'FROM'		=> [GROUPS_TABLE		=> 'g'],
 							'ON'		=> 'g.group_id = u.group_id',
 						],
+						[
+							'FROM'		=> [POSTS_TABLE		=> 'p'],
+							'ON'		=> 'p.poster_id = u.user_id',
+						],
 			],
 
 			'WHERE'			=> '(
@@ -78,9 +82,12 @@ class mot_dim_result_check
 									($this->config['mot_dim_enable_sleeper'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit = 0)' : '') .
 									($this->config['mot_dim_enable_zeropost'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit > 0 AND u.user_posts = 0)' : '') . '
 								)
+								AND (u.user_lastpost_time = 0 OR (u.user_lastpost_time > 0 AND (p.post_visibility > 0 OR p.post_visibility IS NULL)))
 								AND u.user_regdate < ' . (int) $threshold .
 								(!empty($protected_users) ? ' AND (' . $this->db->sql_in_set('u.user_id', $protected_users, true) . ')' : '') .
 								(!empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('u.group_id', $protected_groups, true) . ')' : ''),
+
+			'GROUP_BY'		=> 'u.user_id',
 
 			'ORDER_BY'		=> 'u.user_id ASC',
 		];

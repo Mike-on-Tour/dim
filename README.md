@@ -1,6 +1,6 @@
 # phpBB Delete Inactive Members Extension
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-green)  
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-green)  
   
 ![phpBB 3.3.x Compatible](https://img.shields.io/badge/phpBB-3.3.x%20Compatible-009BDF)  
 
@@ -12,8 +12,8 @@ users by identifying them by their username or for groups in which users are a m
 Users are getting deleted by a cron job which intervals between two runs can be defined within the ACP for either hours or days. With each run the cron job handles a maximum of 1,000
 users to prevent a heavy load on the database. So if you have a big number of users which are either inactive, sleepers or zeroposters it would be best to run the cron job every
 hour or so to get rid of a large chunk of users in a short period of time. After cleaning the database you might want to set the interval to one or even more days.  
-**Warning:** This extension deletes the users selected by the settings without further warning after enabling it in the ACP settings page. This can inadvertently affect users
-you might want to keep if you do not pay attention what settings you choose. Handle this extenson with care!
+**Warning:** This extension deletes the users selected by the settings without further warning after enabling it on its ACP settings page. This can inadvertently affect users
+you might want to keep if you do not pay attention to the settings you choose. Handle this extenson with care! Use it at your own risk!
   
 ## Install
 

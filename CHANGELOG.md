@@ -4,6 +4,19 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.1] - 2024-08-21
+
+### Added
+-	An additional condition to check for the USER_TABLE's `user_lastpost_time` and POSTS_TABLE's `post_visibility` columns to prevent zeroposters from being deleted if they
+	posted once and this post has not been approved when the user was due for deletion
+
+### Changed
+
+### Fixed
+
+### Removed
+
+
 ## [1.0.0] - 2024-04-14
 
 ### Added
