@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.2
+* @package MoT DIM v1.1.0
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -27,19 +27,19 @@ class mot_dim_cron extends \phpbb\cron\task\base
 	protected $root_path;
 
 	/** @var string PHP extension */
-	protected $phpEx;
+	protected $php_ext;
 
 	/**
 	 * {@inheritdoc
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \phpbb\user $user, $root_path, $phpEx)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \phpbb\user $user, $root_path, $php_ext)
 	{
 		$this->config = $config;
 		$this->db = $db;
 		$this->log = $log;
 		$this->user = $user;
 		$this->root_path = $root_path;
-		$this->phpEx = $phpEx;
+		$this->php_ext = $php_ext;
 	}
 
 	/**
@@ -91,7 +91,7 @@ class mot_dim_cron extends \phpbb\cron\task\base
 			$protected_groups = json_decode($this->config['mot_dim_protected_groups']);
 
 			$sql_ary = [
-				'SELECT'		=> 'u.user_id',
+				'SELECT'		=> 'u.user_id, u.user_type, u.user_lastvisit, u.user_posts',
 
 				'FROM'			=> [USERS_TABLE	=> 'u'],
 
@@ -113,6 +113,8 @@ class mot_dim_cron extends \phpbb\cron\task\base
 									(!empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('u.group_id', $protected_groups, true) . ')' : ''),
 
 				'GROUP_BY'		=> 'u.user_id',
+
+				'ORDER_BY'		=> 'u.user_id ASC',
 			];
 			$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 			// Add a LIMIT to the query to ascertain that following queries using the IN clause do not abort because of too many user_ids to handle (an internet search revealed that 1000 seems to be the limit)
@@ -122,30 +124,58 @@ class mot_dim_cron extends \phpbb\cron\task\base
 			$this->db->sql_freeresult($result);
 
 			// Check if we have any users to delete
-			if ($user_id_result)
+			if (!empty($user_id_result))
 			{
-				// Reformat the array holding the users
-				$user_ids = [];
-				foreach ($user_id_result as $row)
-				{
-					$user_ids[] = (int) $row['user_id'];
-				}
-
 				// Check whether the phpBB function to handle user deletion is available and load it if not
 				if (!function_exists('user_delete'))
 				{
-					include($this->root_path . 'includes/functions_user.' . $this->phpEx);
+					include($this->root_path . 'includes/functions_user.' . $this->php_ext);
 				}
 
-				// Get usernames for log purposes
-				$username_ary = [];
-				user_get_id_name($user_ids, $username_ary);
+				// Reformat the array holding the users
+				$user_ids = [
+					'inactive'		=> [],
+					'sleeper'		=> [],
+					'zeroposter'	=> [],
+				];
 
-				// Delete users
-				user_delete('retain', $user_ids);
+				foreach ($user_id_result as $row)
+				{
+					if ($row['user_type'] == USER_INACTIVE)
+					{
+						$user_ids['inactive'][] = (int) $row['user_id'];
+					}
 
-				// Log the action
-				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'MOT_DIM_LOG_DELETION', false, [implode(', ', $username_ary)]);
+					if ($row['user_type'] == USER_NORMAL && $row['user_lastvisit'] == 0)
+					{
+						$user_ids['sleeper'][] = (int) $row['user_id'];
+					}
+
+					if ($row['user_type'] == USER_NORMAL && $row['user_lastvisit'] > 0 && $row['user_posts'] == 0)
+					{
+						$user_ids['zeroposter'][] = (int) $row['user_id'];
+					}
+				}
+
+				foreach ($user_ids as $key => $row)
+				{
+					if (!empty($row))
+					{
+						$log_key = '';
+						// Get usernames for log purposes
+						$username_ary = [];
+						user_get_id_name($row, $username_ary);
+
+						// Delete users
+						user_delete('retain', $row);
+
+						// Log the action
+						$log_key = $key == 'inactive' ? 'MOT_DIM_LOG_INACTIVE_DEL' : $log_key;
+						$log_key = $key == 'sleeper' ? 'MOT_DIM_LOG_SLEEPER_DEL' : $log_key;
+						$log_key = $key == 'zeroposter' ? 'MOT_DIM_LOG_ZEROPOSTER_DEL' : $log_key;
+						$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, $log_key, false, [count($row), implode(', ', $username_ary)]);
+					}
+				}
 			}
 
 			// Set the last run config variable

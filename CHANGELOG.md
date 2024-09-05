@@ -4,6 +4,20 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2024-09-05
+
+### Added
+-	An `ORDER BY u.user_id ASC` to the SQL query in `cron/task/mot_dim_cron.php` in order to get oldest users first
+-	Improved the logging by discerning the log messages by the deleted user type (suggested by LukeWcs)
+
+### Changed
+-	Some variable names in `cron/task/mot_dim_cron.php` from camel case to snake case
+
+### Fixed
+
+### Removed
+
+
 ## [1.0.2] - 2024-08-25
 
 ### Added
@@ -11,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 ### Fixed
--	The wrong sequence of function calls to delete users and then try to get usernames for deleted user_ids for logging in `cron/task/mot_dim_cron.php`
+-	The wrong sequence of function calls to delete users and then try to get usernames for deleted user_ids for logging in `cron/task/mot_dim_cron.php` (bug reported by LukeWCS)
 
 ### Removed
 
@@ -20,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 -	An additional condition to check for the USER_TABLE's `user_lastpost_time` and POSTS_TABLE's `post_visibility` columns to prevent zeroposters from being deleted if they
-	posted once and this post has not been approved when the user was due for deletion
+	posted once and this post has not been approved when the user was due for deletion (suggested by LukeWCS)
 
 ### Changed
 
