@@ -4,6 +4,8 @@
   
 ![phpBB 3.3.x Compatible](https://img.shields.io/badge/phpBB-3.3.x%20Compatible-009BDF)  
 
+[![Build Status](https://github.com/Mike-on-Tour/dim/workflows/Tests/badge.svg)](https://github.com/Mike-on-Tour/dim/actions)
+
 ## Description
 This extension lets the administrator automatically delete any users who have neither activated their account (inactive) nor visited the site after activation (sleepers) nor
 posted anything (zeroposters).  
