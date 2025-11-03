@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.1.1
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,10 +11,10 @@ namespace mot\dim;
 class ext extends \phpbb\extension\base
 {
 	protected $error_message = [];
-	protected $phpbb_min_ver = '3.3.1';
+	protected $phpbb_min_ver = '3.3.4';
 	protected $phpbb_below_ver = '3.4.0@dev';
-	protected $php_min_ver = '7.4.0';
-	protected $php_below_ver = '8.5.0';
+	protected $php_min_ver = '8.0.30';
+	protected $php_below_ver = '8.5.0@dev';
 
 	public function is_enableable()
 	{
@@ -56,13 +56,13 @@ class ext extends \phpbb\extension\base
 		return empty($this->error_message) ? true : $this->error_message;
 	}
 
-	protected function phpbb_requirement()
+	protected function phpbb_requirement() : bool
 	{
 		return (phpbb_version_compare(PHPBB_VERSION, $this->phpbb_min_ver, '>=') && phpbb_version_compare(PHPBB_VERSION, $this->phpbb_below_ver, '<'));
 	}
 
-	protected function php_requirement()
+	protected function php_requirement() : bool
 	{
-		return phpbb_version_compare(PHP_VERSION, $this->php_min_ver, '>') && phpbb_version_compare(PHP_VERSION, $this->php_below_ver, '<');
+		return phpbb_version_compare(PHP_VERSION, $this->php_min_ver, '>=') && phpbb_version_compare(PHP_VERSION, $this->php_below_ver, '<');
 	}
 }

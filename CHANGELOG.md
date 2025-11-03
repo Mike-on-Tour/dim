@@ -4,6 +4,22 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0] - 2025-11-23
+
+### Added
+
+### Changed
+-	Minimum version of phpBB to 3.3.4
+-	PHP Compatibility to minimum version of PHP 8.0.30
+-	The condition under which the cron task is active (is_runnable) from always true to depending on activation of the functionality within the ACP settings page
+-	All constructor declarations to ['Constructor Property Promotion'](https://www.php.net/releases/8.0/de.php#constructor-property-promotion) (a new PHP feature starting with PHP 8.0)
+-	All function declarations into parameters with type declarations
+
+### Fixed
+
+### Removed
+
+
 ## [1.1.1] - 2024-11-23
 
 ### Added

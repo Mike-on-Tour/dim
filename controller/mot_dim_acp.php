@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.0
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,58 +11,11 @@ namespace mot\dim\controller;
 
 class mot_dim_acp
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/* @var \phpbb\group\helper */
-	protected $group_helper;
-
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-
-	/** @var \phpbb\language\language $language Language object */
-	protected $language;
-
-	/** @var \phpbb\extension\manager */
-	protected $phpbb_extension_manager;
-
-	/** @var \phpbb\request\request_interface */
-	protected $request;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var string phpBB root path */
-	protected $root_path;
-
-	/** @var string PHP extension */
-	protected $php_ext;
-
-	/**
-	 * {@inheritdoc
-	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\group\helper $group_helper, \phpbb\controller\helper $helper,
-								\phpbb\language\language $language, \phpbb\extension\manager $phpbb_extension_manager,
-								\phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, $root_path, $php_ext)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\group\helper $group_helper,
+								protected \phpbb\controller\helper $helper, protected \phpbb\language\language $language, protected \phpbb\extension\manager $phpbb_extension_manager,
+								protected \phpbb\request\request_interface $request, protected \phpbb\template\template $template, protected \phpbb\user $user, protected $root_path,
+								protected $php_ext)
 	{
-		$this->config = $config;
-		$this->db = $db;
-		$this->group_helper = $group_helper;
-		$this->helper = $helper;
-		$this->language = $language;
-		$this->phpbb_extension_manager = $phpbb_extension_manager;
-		$this->request = $request;
-		$this->template = $template;
-		$this->user = $user;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
-
 		$this->md_manager = $this->phpbb_extension_manager->create_extension_metadata_manager('mot/dim');
 		$this->mot_dim_version = $this->md_manager->get_metadata('version');
 	}
@@ -183,10 +136,10 @@ class mot_dim_acp
 	/**
 	 * Set custom form action.
 	 *
-	 * @param	string		$u_action	Custom form action
-	 * @return	acp		$this		This controller for chaining calls
+	 * @param	$u_action	Custom form action
+	 * @return	$this		This controller for chaining calls
 	 */
-	public function set_page_url($u_action)
+	public function set_page_url(string $u_action) : object
 	{
 		$this->u_action = $u_action;
 

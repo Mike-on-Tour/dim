@@ -1,9 +1,11 @@
 # phpBB Delete Inactive Members Extension
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-green)  
+![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-green)  
   
 ![phpBB 3.3.x Compatible](https://img.shields.io/badge/phpBB-3.3.x%20Compatible-009BDF)  
 
+![PHP >= 8.0.30, < 8.5.0@dev](https://img.shields.io/badge/PHP->=8.0.30,%20<8.5.0@dev-blueviolet)
+  
 [![Build Status](https://github.com/Mike-on-Tour/dim/workflows/Tests/badge.svg)](https://github.com/Mike-on-Tour/dim/actions)
 
 ## Description

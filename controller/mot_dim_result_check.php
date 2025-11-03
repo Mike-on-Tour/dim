@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.1
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,41 +11,10 @@ namespace mot\dim\controller;
 
 class mot_dim_result_check
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-
-	/** @var \phpbb\language\language $language Language object */
-	protected $language;
-
-	/** @var \phpbb\pagination  */
-	protected $pagination;
-
-	/** @var \phpbb\request\request_interface */
-	protected $request;
-
-	/* @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\controller\helper $helper, \phpbb\language\language $language,
-								\phpbb\pagination $pagination, \phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\controller\helper $helper,
+								protected \phpbb\language\language $language, protected \phpbb\pagination $pagination, protected \phpbb\request\request_interface $request,
+								protected \phpbb\template\template $template, protected \phpbb\user $user)
 	{
-		$this->config = $config;
-		$this->db = $db;
-		$this->helper = $helper;
-		$this->language = $language;
-		$this->pagination = $pagination;
-		$this->request = $request;
-		$this->template = $template;
-		$this->user = $user;
 	}
 
 	public function main()

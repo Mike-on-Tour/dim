@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v0.1.0
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -18,12 +18,12 @@ class mot_dim_acp_module
 	/**
 	 * Main ACP module
 	 *
-	 * @param	string	$id		The module identifier (\mot\dim\acp\mot_dim_acp_module)
-	 *		string	$mode	The module mode (settings)
+	 * @param	$id		The module identifier (\mot\dim\acp\mot_dim_acp_module)
+	 *		$mode	The module mode (settings)
 	 *
 	 * @throws \Exception
 	 */
-	public function main($id, $mode)
+	public function main(string	$id, string	$mode)
 	{
 		global $phpbb_container;
 

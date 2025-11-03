@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.1.0
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,41 +11,14 @@ namespace mot\dim\cron\task;
 
 class mot_dim_cron extends \phpbb\cron\task\base
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\log\log $log */
-	protected $log;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var string phpBB phpbb root path */
-	protected $root_path;
-
-	/** @var string PHP extension */
-	protected $php_ext;
-
-	/**
-	 * {@inheritdoc
-	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \phpbb\user $user, $root_path, $php_ext)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\log\log $log, protected \phpbb\user $user,
+								protected $root_path, protected $php_ext)
 	{
-		$this->config = $config;
-		$this->db = $db;
-		$this->log = $log;
-		$this->user = $user;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
 	}
 
 	/**
 	* Runs this cron task.
 	*
-	* @return null
 	*/
 	public function run()
 	{
@@ -55,23 +28,17 @@ class mot_dim_cron extends \phpbb\cron\task\base
 	/**
 	* Returns whether this cron task can run, given current board configuration.
 	*
-	* @return bool
 	*/
-	public function is_runnable()
+	public function is_runnable() : bool
 	{
-		return true;
+		return (bool) $this->config['mot_dim_enable'];
 	}
 
 	/**
-	* Returns whether this cron task should run now, because enough time
-	* has passed since it was last run.
+	* Returns whether this cron task should run now, because enough time has passed since it was last run.
 	*
-	* The interval between topics tidying is specified in extension
-	* configuration.
-	*
-	* @return bool
 	*/
-	public function should_run()
+	public function should_run() : bool
 	{
 		return $this->config['mot_dim_cron_last_gc'] < time() - $this->config['mot_dim_cron_gc'];
 	}

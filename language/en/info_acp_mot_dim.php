@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.0
+* @package MoT DIM v1.1.1
 * @copyright (c) 2024 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -27,9 +27,9 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 by Mike-on-Tour',
 
 	'ACP_MOT_DIM_GENERAL_SETTINGS'		=> 'General settings',
-	'ACP_MOT_DIM_ENABLE'				=> 'Enable extension',
-	'ACP_MOT_DIM_ENABLE_EXPL'			=> 'Using this switch you can enable or disable this extension.<br><span style="color:red">
-											Prior to enabling you should be certain that the configuration you can set with the following selections fits your needs and does
+	'ACP_MOT_DIM_ENABLE'				=> 'Activate extension',
+	'ACP_MOT_DIM_ENABLE_EXPL'			=> 'Using this switch you can activate or deactivate this extension.<br><span style="color:red">
+											Prior to activating you should be certain that the configuration you can set with the following selections fits your needs and does
 											not delete any users you do not want to delete!</span>',
 
 	'ACP_MOT_DIM_DELETE_SETTINGS'		=> 'Deletion settings',
@@ -44,7 +44,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_PROTECTED_USERS_EXPL'	=> 'Input of the usernames of users you want to protect from being deleted.<br>
 											To remove a user from this list just remove the line with the respective username.<br><strong>Each username MUST BE on its own line!</strong>',
 	'ACP_MOT_DIM_PROTECTED_GROUPS'		=> 'Protected groups',
-	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Please select the <strong>default group(s)</strong> whose members are to be protected from being reminded and deleted. Groups already selected are
+	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Please select the <strong>default group(s)</strong> whose members are to be protected from being deleted. Groups already selected are
 											highlighted.<br>While pressing and holding the ´Ctrl´ key you can select more than one group by clicking the respective names.',
 	'ACP_MOT_DIM_CHECK_RESULT'			=> 'Test settings',
 	'ACP_MOT_DIM_CHECK_RESULT_EXPL'		=> 'After clicking the button to the right a new window will open which displays a table with all members who would be deleted by applying
