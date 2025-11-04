@@ -23,7 +23,7 @@ class mot_dim_acp_module
 	 *
 	 * @throws \Exception
 	 */
-	public function main(string	$id, string	$mode)
+	public function main(string $id, string $mode)
 	{
 		global $phpbb_container;
 
