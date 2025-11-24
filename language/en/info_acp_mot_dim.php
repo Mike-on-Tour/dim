@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.1.1
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -24,7 +24,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_SETTINGS'				=> 'Settings',
 
 	'ACP_MOT_DIM_SETTINGS_EXPL'			=> 'Here you can change the settings for this extension.',
-	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 by Mike-on-Tour',
+	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 - %2$d by Mike-on-Tour',
 
 	'ACP_MOT_DIM_GENERAL_SETTINGS'		=> 'General settings',
 	'ACP_MOT_DIM_ENABLE'				=> 'Activate extension',
@@ -34,8 +34,8 @@ $lang = array_merge($lang, [
 
 	'ACP_MOT_DIM_DELETE_SETTINGS'		=> 'Deletion settings',
 	'ACP_MOT_DIM_DAYS_DELETE'			=> 'Number of days until deletion',
-	'ACP_MOT_DIM_DAYS_DELETE_EXP'		=> 'Select the number of days since registration after which users will be deleted if they have neither activated their account nor logged
-											into the board nor posted something.',
+	'ACP_MOT_DIM_DAYS_DELETE_EXP'		=> 'Select the number of days since registration after which users will be deleted if they have not activated their account or have not logged
+											into the board or have not posted something.',
 	'ACP_MOT_DIM_ENABLE_SLEEPER'		=> 'Incorporate sleepers',
 	'ACP_MOT_DIM_ENABLE_SLEEPER_EXPL'	=> 'If enabled (default) sleepers (members who after their account has been activated never have logged in) will be incorporated into deletion.',
 	'ACP_MOT_DIM_ENABLE_ZEROPOST'		=> 'Incorporate zeroposters',
@@ -49,7 +49,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_CHECK_RESULT'			=> 'Test settings',
 	'ACP_MOT_DIM_CHECK_RESULT_EXPL'		=> 'After clicking the button to the right a new window will open which displays a table with all members who would be deleted by applying
 											the configuration above. Thus you can check whether the selected settings will produce the intended result prior to enabling the extension.
-											<br>Please keep in mind that you have to save the settings first!',
+											<br><strong>Please keep in mind that you have to save the settings first!</strong>',
 
 	'ACP_MOT_DIM_CRON_SETTINGS'			=> 'Cron settings',
 	'ACP_MOT_DIM_CRON_INTERVAL'			=> 'Time interval between two cron runs',

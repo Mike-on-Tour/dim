@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.0.0
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.2.0
+* @copyright (c) 2024 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -24,7 +24,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_SETTINGS'				=> 'Einstellungen',
 
 	'ACP_MOT_DIM_SETTINGS_EXPL'			=> 'Hier können Sie die Einstellungen für diese Erweiterung ändern.',
-	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 by Mike-on-Tour',
+	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 - %2$d by Mike-on-Tour',
 
 	'ACP_MOT_DIM_GENERAL_SETTINGS'		=> 'Allgemeine Einstellungen',
 	'ACP_MOT_DIM_ENABLE'				=> 'Funktion aktivieren',
@@ -50,7 +50,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_CHECK_RESULT'			=> 'Einstellungen testen',
 	'ACP_MOT_DIM_CHECK_RESULT_EXPL'		=> 'Nach Anklicken des Buttons rechts öffnet sich ein neues Fenster, in dem die Mitglieder aufgelistet werden, die mit der obigen
 											Konfiguration gelöscht würden. So können Sie vor Aktivierung der Erweiterung prüfen, ob die gewählten Einstellungen das gewünschte
-											Resultat erzeugen.<br>Beachten Sie bitte, dass die Einstellungen zuvor gespeichert werden müssen!',
+											Resultat erzeugen.<br><strong>Beachten Sie bitte, dass die Einstellungen zuvor gespeichert werden müssen!</strong>',
 
 	'ACP_MOT_DIM_CRON_SETTINGS'			=> 'Cron-Einstellungen',
 	'ACP_MOT_DIM_CRON_INTERVAL'			=> 'Zeit zwischen zwei Cron-Läufen',

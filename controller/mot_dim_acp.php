@@ -124,7 +124,7 @@ class mot_dim_acp
 			'ACP_MOT_DIM_CRON_INTERVAL'				=> $this->config['mot_dim_cron_unit'] ? $this->config['mot_dim_cron_gc'] / 86400 : $this->config['mot_dim_cron_gc'] / 3600,
 			'ACP_MOT_DIM_CRON_UNIT_SELECT'			=> $cron_unit_select,
 			'ACP_MOT_DIM_LAST_CRON_RUN'				=> $this->config['mot_dim_cron_last_gc'] ? $this->user->format_date($this->config['mot_dim_cron_last_gc']) : '-',
-			'ACP_MOT_DIM_VERSION_STRING'			=> $this->language->lang('ACP_MOT_DIM_VERSION', $this->mot_dim_version),
+			'ACP_MOT_DIM_VERSION_STRING'			=> $this->language->lang('ACP_MOT_DIM_VERSION', $this->mot_dim_version, date('Y')),
 			'U_ACTION'								=> $this->u_action . '&amp;action=submit',
 			'U_ACTION_TEST_SETTINGS'				=> $this->helper->route('mot_dim_result_check_controller', []),
 		]);
