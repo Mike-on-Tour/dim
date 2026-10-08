@@ -18,6 +18,10 @@ fieldset legend {
 /* Test button */
 .dim-button {
 	padding: 5px !important;
+
+	&:disabled {
+		color: grey;
+	}
 }
 
 /* phpBB ACP Toggles - A CSS class that makes it easy to display checkboxes as toggles.

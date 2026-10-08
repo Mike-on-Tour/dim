@@ -1,7 +1,6 @@
 {% include 'overall_header.html' %}
 {% INCLUDECSS '@mot_dim/mot_dim_acp.css' %}
 {% INCLUDEJS '@mot_dim/mot_dim_acp.js' %}
-{% set switch_type = TOGGLECTRL_TYPE ?? 'toggle' %}
 
 <h1>{{ lang('ACP_MOT_DIM') }}</h1>
 <p>{{ lang('ACP_MOT_DIM_SETTINGS_EXPL') }}</p>
@@ -12,7 +11,7 @@
 
 		<dl>
 			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_EXPL') }}</span></dt>
-			<dd>{{ _self.switch('mot_dim_enable', ACP_MOT_DIM_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_dim_enable', ACP_MOT_DIM_ENABLE) }}</dd>
 		</dl>
 	</fieldset>
 
@@ -27,12 +26,12 @@
 
 		<dl>
 			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER_EXPL') }}</span></dt>
-			<dd>{{ _self.switch('mot_dim_enable_sleeper', ACP_MOT_DIM_ENABLE_SLEEPER, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_dim_enable_sleeper', ACP_MOT_DIM_ENABLE_SLEEPER) }}</dd>
 		</dl>
 
 		<dl>
 			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL') }}</span></dt>
-			<dd>{{ _self.switch('mot_dim_enable_zeropost', ACP_MOT_DIM_ENABLE_ZEROPOST, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_dim_enable_zeropost', ACP_MOT_DIM_ENABLE_ZEROPOST) }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="mot_dim_protected_users">{{ lang('ACP_MOT_DIM_PROTECTED_USERS') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_PROTECTED_USERS_EXPL') }}</span></dt>
@@ -50,7 +49,7 @@
 			<dt><label for="mot_dim_check_results">{{ lang('ACP_MOT_DIM_CHECK_RESULT') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_CHECK_RESULT_EXPL') }}</span></dt>
             <dd>
 				<a href="{{ U_ACTION_TEST_SETTINGS }}" onclick="javascript:popup(this.href, 818, 750, '_matchstats'); return false;">
-					<input class="dim-button button1" type="submit" value="{{ lang('ACP_MOT_DIM_CHECK_RESULT') }}">
+					<input class="dim-button button1" type="submit" id="mot_dim_check_results" value="{{ lang('ACP_MOT_DIM_CHECK_RESULT') }}">
 				</a>
 			</dd>
 		</dl>
@@ -62,7 +61,7 @@
 		<dl>
 			<dt><label>{{ lang('ACP_MOT_DIM_CRON_INTERVAL') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_CRON_INTERVAL_EXPL') }}</span></dt>
 			<dd>
-				<input id="mot_dim_cron_interval" type="number" min="1" max="23" name="mot_dim_cron_interval" value={{ ACP_MOT_DIM_CRON_INTERVAL }}>
+				<input id="mot_dim_cron_interval" type="number" min="1" max="5" name="mot_dim_cron_interval" value={{ ACP_MOT_DIM_CRON_INTERVAL }}>
 				<select id="mot_dim_cron_unit" name="mot_dim_cron_unit">{{ ACP_MOT_DIM_CRON_UNIT_SELECT }}</select>
 			</dd>
 		</dl>
@@ -71,11 +70,6 @@
 			<dt><label>{{ lang('ACP_MOT_DIM_LAST_CRON_RUN') ~ lang('COLON') }}</label></dt>
 			<dd>{{ ACP_MOT_DIM_LAST_CRON_RUN }}</dd>
 		</dl>
-{#
-		<dl>
-			<dt><label>{{ lang('ACP_MOT_DIM_NEXT_CRON_RUN') ~ lang('COLON') }}</label></dt>
-			<dd>{{ ACP_MOT_DIM_NEXT_CRON_RUN }}</dd>
-		</dl>#}
 	</fieldset>
 
 	<fieldset>
@@ -93,11 +87,13 @@
 
 {% include 'overall_footer.html' %}
 
-{% macro switch(name, checked = false, type = 'toggle') -%}
-	{% if type == 'toggle' || type == 'checkbox' -%}
-		<input type="checkbox" class="{{ type }}" name="{{ name }}" value="1"{{ checked ? ' checked' }}>
+{% macro switch(name, checked = false, type = null) -%}
+	{% set type = type ?? (TOGGLECTRL_TYPE in ['toggle', 'checkbox', 'radio'] ? TOGGLECTRL_TYPE : 'toggle') -%}
+	{% if type in ['toggle', 'checkbox'] -%}
+		<input type="checkbox" class="{{ type }}" id="{{ name }}" name="{{ name }}" value="1"{{ checked ? ' checked' }}>
 	{%- elseif type == 'radio' -%}
-		<label><input type="radio" class="radio" name="{{ name }}" value="1"{{ checked ? ' checked' }}> {{ lang('YES') }}</label>
-		<label><input type="radio" class="radio" name="{{ name }}" value="0"{{ !checked ? ' checked' }}> {{ lang('NO') }}</label>
+		<label><input type="radio" class="radio" id="{{ name }}" name="{{ name }}" value="1"{{ checked ? ' checked' }}> {{ lang('YES') }}</label>
+		<label><input type="radio" class="radio" id="{{ name }}" name="{{ name }}" value="0"{{ !checked ? ' checked' }}> {{ lang('NO') }}</label>
 	{%- endif %}
+	{#- v1.3.1 #}
 {%- endmacro %}

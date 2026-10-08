@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.2.0
-* @copyright (c) 2024 - 2025 Mike-on-Tour
+* @package MoT DIM v1.3.0
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,10 +11,19 @@ namespace mot\dim\controller;
 
 class mot_dim_acp
 {
-	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\group\helper $group_helper,
-								protected \phpbb\controller\helper $helper, protected \phpbb\language\language $language, protected \phpbb\extension\manager $phpbb_extension_manager,
-								protected \phpbb\request\request_interface $request, protected \phpbb\template\template $template, protected \phpbb\user $user, protected $root_path,
-								protected $php_ext)
+	public function __construct(
+		protected \phpbb\config\config $config,
+		protected \phpbb\db\driver\driver_interface $db,
+		protected \phpbb\group\helper $group_helper,
+		protected \phpbb\controller\helper $helper,
+		protected \phpbb\language\language $language,
+		protected \phpbb\extension\manager $phpbb_extension_manager,
+		protected \phpbb\request\request_interface $request,
+		protected \phpbb\template\template $template,
+		protected \phpbb\user $user,
+		protected $root_path,
+		protected $php_ext
+	)
 	{
 		$this->md_manager = $this->phpbb_extension_manager->create_extension_metadata_manager('mot/dim');
 		$this->mot_dim_version = $this->md_manager->get_metadata('version');

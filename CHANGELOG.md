@@ -4,6 +4,29 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2026-10-08
+
+### Added
+-	A function to the `ext.php` file to get the minimum and maximum versions and their respective conditions from the `require` section of the `composer.json` file in order to
+	prevent errors due to the duplicate entries in those two files
+-	Dynamic JSON Badges to the `README.md` file to get the currently valid version information from the GitHub repository's `composer.json` file
+-	Events to the input elements of the "Deletion settings" section of `adm/style/acp_mot_dim_settings.html` to disable the "Test settings" button
+-	A `:disabled` color definition to the "Test settings" button in `adm/style/mot_dim_acp.css`
+
+### Changed
+-	Minimum version of phpBB to 3.3.9
+-	PHP Compatibility to minimum version of PHP 8.1.33 and maximum version of 8.6.x
+-	The switch macro in `adm/style/acp_mot_dim_settings.html` to the current version of "Toggle Control" (by LukeWCS) and incorporated an id tag
+-	Improved code readability
+
+### Fixed
+-	The maximum number for the initial display of the `mot_dim_cron_interval` input in `adm/style/acp_mot_dim_settings.html` (5 instead of 23)
+-	The wrong sequence of first querying the database and then validate the `$start` variable in `controller/mot_dim_result_check.php` which resulted in an empty table if the
+	user selected manually a higher page number than was possible
+
+### Removed
+
+
 ## [1.2.0] - 2025-11-25
 
 ### Added

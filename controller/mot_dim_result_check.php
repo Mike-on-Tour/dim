@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.2.0
-* @copyright (c) 2024 - 2025 Mike-on-Tour
+* @package MoT DIM v1.3.0
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,9 +11,16 @@ namespace mot\dim\controller;
 
 class mot_dim_result_check
 {
-	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\controller\helper $helper,
-								protected \phpbb\language\language $language, protected \phpbb\pagination $pagination, protected \phpbb\request\request_interface $request,
-								protected \phpbb\template\template $template, protected \phpbb\user $user)
+	public function __construct(
+		protected \phpbb\config\config $config,
+		protected \phpbb\db\driver\driver_interface $db,
+		protected \phpbb\controller\helper $helper,
+		protected \phpbb\language\language $language,
+		protected \phpbb\pagination $pagination,
+		protected \phpbb\request\request_interface $request,
+		protected \phpbb\template\template $template,
+		protected \phpbb\user $user
+	)
 	{
 	}
 
@@ -68,6 +75,13 @@ class mot_dim_result_check
 		// Get the total users count
 		$total_users = count($user_result);
 
+		//base url for pagination
+		$base_url = $this->helper->route('mot_dim_result_check_controller');
+
+		// Load pagination
+		$start = $this->pagination->validate_start($start, $limit, $total_users);
+		$this->pagination->generate_template_pagination($base_url, 'pagination', 'start', $total_users, $limit, $start);
+
 		// And now do the query with the pagination values
 		$result = $this->db->sql_query_limit($sql, $limit, $start);
 		$user_result = $this->db->sql_fetchrowset($result);
@@ -86,13 +100,6 @@ class mot_dim_result_check
 				'REASON'		=> $reason,
 			]);
 		}
-
-		//base url for pagination
-		$base_url = $this->helper->route('mot_dim_result_check_controller');
-
-		// Load pagination
-		$start = $this->pagination->validate_start($start, $limit, $total_users);
-		$this->pagination->generate_template_pagination($base_url, 'pagination', 'start', $total_users, $limit, $start);
 
 		$this->template->assign_vars([
 			'MOT_DIM_TOTAL_USERS'		=> $this->language->lang('MOT_DIM_TOTAL_USERS', $total_users),

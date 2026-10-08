@@ -1,10 +1,10 @@
 # phpBB Delete Inactive Members Extension
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-green)  
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/Mike-on-Tour/dim/refs/heads/develop/composer.json?&query=version&label=Version&color=green)  
   
-![phpBB >=3.3.4,< 3.4.0@dev](https://img.shields.io/badge/phpBB->=3.3.4,%20<3.4.0@dev-009BDF)  
-
-![PHP >= 8.0.30, < 8.6.0@dev](https://img.shields.io/badge/PHP->=8.0.30,%20<8.6.0@dev-blueviolet)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/Mike-on-Tour/dim/refs/heads/develop/composer.json?&query=require.phpbb/phpbb&label=phpBB&color=009BDF)  
+  
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/Mike-on-Tour/dim/refs/heads/develop/composer.json?&query=require.php&label=PHP&color=blueviolet)  
   
 [![Build Status](https://github.com/Mike-on-Tour/dim/workflows/Tests/badge.svg)](https://github.com/Mike-on-Tour/dim/actions)
 
