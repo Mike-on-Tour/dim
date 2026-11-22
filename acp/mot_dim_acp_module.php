@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.2.0
-* @copyright (c) 2024 - 2025 Mike-on-Tour
+* @package MoT DIM v1.3.1
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -27,7 +27,7 @@ class mot_dim_acp_module
 	{
 		global $phpbb_container;
 
-		/** @var \mot.pages.controller.acp $acp_config_controller */
+		/** @var \mot.dim.controller.mot_dim_acp $acp_controller */
 		$acp_controller = $phpbb_container->get('mot.dim.controller.mot_dim_acp');
 
 		/** @var \phpbb\language\language $language */

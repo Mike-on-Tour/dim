@@ -1,11 +1,12 @@
 <?php
 /**
 *
-* @package MoT DIM v1.3.0
+* @package MoT DIM v1.3.1
 * @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
+
 namespace mot\dim;
 
 class ext extends \phpbb\extension\base
@@ -67,12 +68,12 @@ class ext extends \phpbb\extension\base
 
 	protected function php_requirement() : bool
 	{
-		return phpbb_version_compare(PHP_VERSION, $this->php_min_ver, '>=') && phpbb_version_compare(PHP_VERSION, $this->php_below_ver, '<');
+		return phpbb_version_compare(PHP_VERSION, $this->php_min_ver, $this->php_gt) && phpbb_version_compare(PHP_VERSION, $this->php_below_ver, $this->php_lt);
 	}
 
 	protected function phpbb_requirement() : bool
 	{
-		return (phpbb_version_compare(PHPBB_VERSION, $this->phpbb_min_ver, '>=') && phpbb_version_compare(PHPBB_VERSION, $this->phpbb_below_ver, '<'));
+		return phpbb_version_compare(PHPBB_VERSION, $this->phpbb_min_ver, $this->phpbb_gt) && phpbb_version_compare(PHPBB_VERSION, $this->phpbb_below_ver, $this->phpbb_lt);
 	}
 
 	/*
@@ -92,7 +93,7 @@ class ext extends \phpbb\extension\base
 		$this->php_lt = $matches['lt'];
 
 		// Set phpBB versions
-		$phpbb_versions = html_entity_decode($metadata['require']['phpbb/phpbb']);
+		$phpbb_versions = html_entity_decode($metadata['extra']['soft-require']['phpbb/phpbb']);
 		preg_match("/(?'gt'>=?)(?'min'\d+.\d+(.\d+)?),[ ]?(?'lt'<=?)(?'max'\d+.\d+(.\d+)?(@[a-z]{1,4})?)/", $phpbb_versions, $matches);
 		$this->phpbb_min_ver = $matches['min'];
 		$this->phpbb_gt = $matches['gt'];

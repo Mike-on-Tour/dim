@@ -25,12 +25,12 @@
 
 
 		<dl>
-			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER_EXPL') }}</span></dt>
+			<dt><label for="mot_dim_enable_sleeper">{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_SLEEPER_EXPL') }}</span></dt>
 			<dd>{{ _self.switch('mot_dim_enable_sleeper', ACP_MOT_DIM_ENABLE_SLEEPER) }}</dd>
 		</dl>
 
 		<dl>
-			<dt><label for="mot_dim_enable">{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL') }}</span></dt>
+			<dt><label for="mot_dim_enable_zeropost">{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_ENABLE_ZEROPOST_EXPL') }}</span></dt>
 			<dd>{{ _self.switch('mot_dim_enable_zeropost', ACP_MOT_DIM_ENABLE_ZEROPOST) }}</dd>
 		</dl>
 		<dl>
@@ -40,7 +40,7 @@
 
 		<dl>
 			<dt><label for="mot_dim_protected_groups">{{ lang('ACP_MOT_DIM_PROTECTED_GROUPS') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_PROTECTED_GROUPS_EXPL') }}</span></dt>
-            <dd><select class="no-scroll" id="mot_dim_protected_groups" name="mot_dim_protected_groups[]" size="{{ ACP_MOT_DIM_GROUP_COUNT }}" multiple="multiple">{{ ACP_MOT_DIM_PROTECTED_GROUPS }}</select></dd>
+			<dd><select class="no-scroll" id="mot_dim_protected_groups" name="mot_dim_protected_groups[]" size="{{ ACP_MOT_DIM_GROUP_COUNT }}" multiple="multiple">{{ ACP_MOT_DIM_PROTECTED_GROUPS }}</select></dd>
 		</dl>
 
 		<hr>
@@ -49,7 +49,7 @@
 			<dt><label for="mot_dim_check_results">{{ lang('ACP_MOT_DIM_CHECK_RESULT') ~ lang('COLON') }}</label><br><span>{{ lang('ACP_MOT_DIM_CHECK_RESULT_EXPL') }}</span></dt>
             <dd>
 				<a href="{{ U_ACTION_TEST_SETTINGS }}" onclick="javascript:popup(this.href, 818, 750, '_matchstats'); return false;">
-					<input class="dim-button button1" type="submit" id="mot_dim_check_results" value="{{ lang('ACP_MOT_DIM_CHECK_RESULT') }}">
+					<input class="dim-button button1" type="button" id="mot_dim_check_results" value="{{ lang('ACP_MOT_DIM_CHECK_RESULT') }}">
 				</a>
 			</dd>
 		</dl>
@@ -83,7 +83,10 @@
 	{{ S_FORM_TOKEN }}
 </form>
 
-<p class="centered_text">{{ ACP_MOT_DIM_VERSION_STRING }}</p>
+<p class="centered_text">
+	<img src="{{ ROOT_PATH }}ext/mot/dim/version.php"><br>
+	{{ ACP_MOT_DIM_VERSION_STRING }}
+</p>
 
 {% include 'overall_footer.html' %}
 

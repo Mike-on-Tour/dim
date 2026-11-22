@@ -1,7 +1,7 @@
 /**
 *
-* @package MoT DIM v0.1.0
-* @copyright (c) 2024 Mike-on-Tour
+* @package MoT DIM v1.3.1
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -39,7 +39,7 @@ $("#mot_dim_cron_unit").on("change", function() {
 		$("#mot_dim_cron_interval").attr('max', $("#mot_dim_days_delete").val());
 
 		// Check the cron interval for a value greater than the number of days since registration and limit it if necessary
-		let exceedMaxDays = $("#mot_dim_cron_interval").val() > $("#mot_dim_days_delete").val();
+		let exceedMaxDays = parseInt($("#mot_dim_cron_interval").val()) > parseInt($("#mot_dim_days_delete").val());
 		if (exceedMaxDays) {
 			$("#mot_dim_cron_interval").val($("#mot_dim_days_delete").val());
 		}
@@ -50,11 +50,18 @@ $("#mot_dim_cron_unit").on("change", function() {
 * Disable the "Test settings" button after changes to one or more of the deletion settings
 */
 $("#mot_dim_protected_users").on("blur", function() {
-	$("#mot_dim_check_results").prop("disabled", true);
+	$("#mot_dim_check_results").attr("disabled", true);
 });
 
 $("#mot_dim_days_delete, #mot_dim_enable_sleeper, #mot_dim_enable_zeropost, #mot_dim_protected_groups").on("change", function() {
-	$("#mot_dim_check_results").prop("disabled", true);
+	$("#mot_dim_check_results").attr("disabled", true);
+});
+
+/*
+* Enable the "Test settings" button after clicking the "Reset" button
+*/
+$("#reset").on("click", function() {
+	$("#mot_dim_check_results").attr("disabled", false);
 });
 
 })(jQuery); // Avoid conflicts with other libraries

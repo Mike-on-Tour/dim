@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT DIM v1.2.0
-* @copyright (c) 2024 - 2025 Mike-on-Tour
+* @package MoT DIM v1.3.1
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -24,7 +24,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_SETTINGS'				=> 'Einstellungen',
 
 	'ACP_MOT_DIM_SETTINGS_EXPL'			=> 'Hier kannst du die Einstellungen für diese Erweiterung ändern.',
-	'ACP_MOT_DIM_VERSION'				=> '<img src="https://img.shields.io/badge/Version-%1$s-green.svg?style=plastic"><br>&copy; 2024 - %2$d by Mike-on-Tour',
+	'ACP_MOT_DIM_VERSION'				=> '&copy; 2024 - %1$d by Mike-on-Tour',
 
 	'ACP_MOT_DIM_GENERAL_SETTINGS'		=> 'Allgemeine Einstellungen',
 	'ACP_MOT_DIM_ENABLE'				=> 'Funktion aktivieren',
@@ -45,8 +45,8 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_PROTECTED_USERS_EXPL'	=> 'Eingabe der Benutzernamen von Mitgliedern, die von einer Löschung ausgenommen werden sollen.<br>
 											Zeilen mit Mitgliedernamen entfernen, um diese Mitglieder aus dieser Liste zu löschen.<br><strong>Nur ein Name pro Zeile!</strong>',
 	'ACP_MOT_DIM_PROTECTED_GROUPS'		=> 'Geschützte Gruppen',
-	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Auswahl von <strong>Hauptgruppe(n)</strong>, deren Mitglieder von einer Löschung ausgenommen werden sollen. Bereits ausgewählte Gruppen
-											sind hervorgehoben.<br>Unter Drücken und Halten der ´Strg´-Taste und Mausklick können mehrere Gruppen ausgewählt werden.',
+	'ACP_MOT_DIM_PROTECTED_GROUPS_EXPL'	=> 'Auswahl von Gruppe(n), deren Mitglieder von einer Löschung ausgenommen werden sollen. Bereits ausgewählte Gruppen sind hervorgehoben.<br>
+											Unter Drücken und Halten der ´Strg´-Taste und Mausklick können mehrere Gruppen ausgewählt werden.',
 	'ACP_MOT_DIM_CHECK_RESULT'			=> 'Einstellungen testen',
 	'ACP_MOT_DIM_CHECK_RESULT_EXPL'		=> 'Nach Anklicken des Buttons rechts öffnet sich ein neues Fenster, in dem die Mitglieder aufgelistet werden, die mit der obigen
 											Konfiguration gelöscht würden. So kannst du vor Aktivierung der Erweiterung prüfen, ob die gewählten Einstellungen das gewünschte
@@ -55,7 +55,8 @@ $lang = array_merge($lang, [
 	'ACP_MOT_DIM_CRON_SETTINGS'			=> 'Cron-Einstellungen',
 	'ACP_MOT_DIM_CRON_INTERVAL'			=> 'Zeit zwischen zwei Cron-Läufen',
 	'ACP_MOT_DIM_CRON_INTERVAL_EXPL'	=> 'Hier kannst du die Zeit zwischen zwei Aufrufen des Cron-Jobs einstellen. Außerdem hast du die Wahl zwischen Tagen und Stunden für die
-											Auswahl dieses Zeitraumes.',
+											Auswahl dieses Zeitraumes.<br>
+											<strong>Achtung: Vor der Eingabe des Intervalls muss die Einheit eingestellt werden!</strong>',
 	'MOT_DIM_UNIT_HOUR'					=> 'Stunde(n)',
 	'MOT_DIM_UNIT_DAY'					=> 'Tag(e)',
 	'ACP_MOT_DIM_LAST_CRON_RUN'			=> 'Letzter Cron-Lauf',

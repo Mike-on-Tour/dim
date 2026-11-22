@@ -4,6 +4,41 @@ All changes to `Delete Inactive Members` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.1] - 2026-11-20
+Special thanks to LukeWCS (phpbb.de) who pointed a desperate, blind man to the correct backslash
+
+### Added
+-	A `version.php` file which creates the version badge on the ACP settings page from the `version` info in `composer.json`
+-	A new event handler in `adm/style/mot_dim_acp.js` to enable the "Test settings" button when the "Reset" button is clicked
+-	A new migration file `migrations/v_1_3_1.php` to add a `config_text` variable holding the protected users (instead of using a `config` variable with limited capacity)
+
+### Changed
+-	The function getting version information in `ext.php` to get the required minimum and maximum phpBB versions from the `composer.json` file's `extra` section
+-	Getting the paginated users to display with `controller/mot_dim_result_check.php` from another SQL query to an array operation on the already existing array and thus
+	saving one SQL query
+-	The version badge on the settings page no longer is a link to "https://img.shields.io" but to a new PHP file creating the version badge as SVG image
+-	Getting the groups for the protected groups select field from default groups to all groups assigned to the human users in `controller/mot_dim_acp.php`
+-	Selecting users for deletion in `controller/mot_dim_result_check.php` and `cron/task/mot_dim_cron.php` now incorporates all groups users belong to and not only their
+	default group while checking if a user belongs to a protected group
+
+### Fixed
+-	A missing authorization check in `controller/mot_dim_result_check.php` which resulted in a security issue, now admin permissions are required to view the list of Inactive
+	members through the "Test settings" button on the ACP settings page
+-	SQL queries in `controller/mot_dim_acp.php`, `controller/mot_dim_result_check.php` and `cron/task/mot_dim_cron.php` in order to function with PostgreSQL
+-	SQL queries in `controller/mot_dim_result_check.php` and `cron/task/mot_dim_cron.php` in order to correctly discriminate zeroposters
+-	The query limit in `cron/task/mot_dim_cron.php` which was incompatible with MSSQL and Oracle
+-	The missing declaration of the `$u_action` variable in `controller/mot_dim_acp.php`
+-	The reused "for=" declarations in `adm/style/acp_mot_dim_settings.html`, lines 28 and 33
+-	The inadvertent opening of the test settings popup when pressing "Enter" by defining the "Test settings" control as button instead of submit
+-	Missing server side checks for the correct values of days until deletion, cron task unit and interval
+-	Missing `parseInt()` handlers in `adm/style/mot_dim_acp.js`, line 42 to properly check if the cron task interval exceeds the number of days until deletion
+-	The unused parsed comparison operators in `ext.php`, lines 70 and 75
+-	A wrong indentation in `adm/style/acp_mot_dim_settings.html`, line 43
+-	A wrong controller type in the doc block at `acp/mot_dim_acp_module.php`, line 30
+
+### Removed
+
+
 ## [1.3.0] - 2026-10-08
 
 ### Added

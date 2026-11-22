@@ -8,11 +8,11 @@ services:
         class: mot\dim\controller\mot_dim_acp
         arguments:
             - '@config'
+            - '@config_text'
             - '@dbal.conn'
             - '@group_helper'
             - '@controller.helper'
             - '@language'
-            - '@ext.manager'
             - '@request'
             - '@template'
             - '@user'
@@ -23,6 +23,7 @@ services:
         class: mot\dim\cron\task\mot_dim_cron
         arguments:
             - '@config'
+            - '@config_text'
             - '@dbal.conn'
             - '@log'
             - '@user'
@@ -36,7 +37,9 @@ services:
     mot.dim.controller.mot_dim_result_check:
         class: mot\dim\controller\mot_dim_result_check
         arguments:
+            - '@auth'
             - '@config'
+            - '@config_text'
             - '@dbal.conn'
             - '@controller.helper'
             - '@language'

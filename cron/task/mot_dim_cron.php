@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT DIM v1.3.0
+* @package MoT DIM v1.3.1
 * @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -13,6 +13,7 @@ class mot_dim_cron extends \phpbb\cron\task\base
 {
 	public function __construct(
 		protected \phpbb\config\config $config,
+		protected \phpbb\config\db_text $config_text,
 		protected \phpbb\db\driver\driver_interface $db,
 		protected \phpbb\log\log $log,
 		protected \phpbb\user $user,
@@ -60,18 +61,18 @@ class mot_dim_cron extends \phpbb\cron\task\base
 			$threshold = time() - ($this->config['mot_dim_days_delete'] * 86400);
 
 			// Get the protected users and groups
-			$protected_users = json_decode($this->config['mot_dim_protected_users']);
+			$protected_users = json_decode($this->config_text->get('mot_dim_protected_users'));
 			$protected_groups = json_decode($this->config['mot_dim_protected_groups']);
 
 			$sql_ary = [
-				'SELECT'		=> 'u.user_id, u.user_type, u.user_lastvisit, u.user_posts',
+				'SELECT'		=> 'u.user_id, u.username, u.user_type, u.group_id, u.user_lastvisit, u.user_regdate, u.user_posts, u.user_lastpost_time, g.group_type, g.group_name',
 
-				'FROM'			=> [USERS_TABLE	=> 'u'],
+				'FROM'			=> [USERS_TABLE		=> 'u',],
 
 				'LEFT_JOIN'		=> [
 							[
-								'FROM'		=> [POSTS_TABLE		=> 'p'],
-								'ON'		=> 'p.poster_id = u.user_id',
+								'FROM'		=> [GROUPS_TABLE		=> 'g'],
+								'ON'		=> 'g.group_id = u.group_id',
 							],
 				],
 
@@ -80,19 +81,19 @@ class mot_dim_cron extends \phpbb\cron\task\base
 										($this->config['mot_dim_enable_sleeper'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit = 0)' : '') .
 										($this->config['mot_dim_enable_zeropost'] ? ' OR (u.user_type = '. USER_NORMAL . ' AND u.user_lastvisit > 0 AND u.user_posts = 0)' : '') . '
 									)
-									AND (u.user_lastpost_time = 0 OR (u.user_lastpost_time > 0 AND (p.post_visibility > 0 OR p.post_visibility IS NULL)))
+									AND (
+										u.user_lastpost_time = 0 OR (u.user_lastpost_time > 0
+										AND NOT EXISTS (SELECT 1 FROM ' . POSTS_TABLE . ' p WHERE p.poster_id = u.user_id))
+									)
 									AND u.user_regdate < ' . (int) $threshold .
 									(!empty($protected_users) ? ' AND (' . $this->db->sql_in_set('u.user_id', $protected_users, true) . ')' : '') .
-									(!empty($protected_groups) ? ' AND (' . $this->db->sql_in_set('u.group_id', $protected_groups, true) . ')' : ''),
-
-				'GROUP_BY'		=> 'u.user_id',
+									(!empty($protected_groups) ? ' AND NOT EXISTS (SELECT 1 FROM ' . USER_GROUP_TABLE . ' ug WHERE ug.user_id = u.user_id AND ug.user_pending = 0 AND ' . $this->db->sql_in_set('ug.group_id', $protected_groups) . ')' : ''),
 
 				'ORDER_BY'		=> 'u.user_id ASC',
 			];
 			$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 			// Add a LIMIT to the query to ascertain that following queries using the IN clause do not abort because of too many user_ids to handle (an internet search revealed that 1000 seems to be the limit)
-			$sql .= ' LIMIT 1000';
-			$result = $this->db->sql_query($sql);
+			$result = $this->db->sql_query_limit($sql, 1000);
 			$user_id_result = $this->db->sql_fetchrowset($result);
 			$this->db->sql_freeresult($result);
 
